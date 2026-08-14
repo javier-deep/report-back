@@ -3,6 +3,28 @@ const Proyecto = require('../models/Proyecto');
 
 const router = express.Router();
 
+router.get('/pendientes', async (req, res) => {
+  try {
+    const proyectos = await Proyecto.find({
+      estado: { $in: ['Pendiente', 'Recibido', 'Revisado'] },
+    }).sort({ proyectoId: 1 });
+
+    return res.json({
+      ok: true,
+      count: proyectos.length,
+      data: proyectos.map((proyecto) => ({
+        proyectoId: proyecto.proyectoId,
+        nombreCliente: proyecto.nombreCliente,
+        direccion: proyecto.direccion,
+        tecnicoAsignado: proyecto.tecnicoAsignado,
+        estado: proyecto.estado,
+      })),
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Error al listar proyectos pendientes', error: error.message });
+  }
+});
+
 router.get('/pendientes/:tecnicoId', async (req, res) => {
   try {
     const { tecnicoId } = req.params;
