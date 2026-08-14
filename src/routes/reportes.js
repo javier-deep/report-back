@@ -48,7 +48,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/enviar', authRequired, upload.fields(allowedKeys.map((key) => ({ name: key, maxCount: 1 }))), async (req, res) => {
+router.post('/enviar', upload.fields(allowedKeys.map((key) => ({ name: key, maxCount: 1 }))), async (req, res) => {
   try {
     const { datos } = req.body;
 
