@@ -15,6 +15,8 @@ router.get('/pendientes', async (req, res) => {
       data: proyectos.map((proyecto) => ({
         proyectoId: proyecto.proyectoId,
         nombreCliente: proyecto.nombreCliente,
+        proyectoid: proyecto.proyectoId,
+        nombrecliente: proyecto.nombreCliente,
         direccion: proyecto.direccion,
         tecnicoAsignado: proyecto.tecnicoAsignado,
         estado: proyecto.estado,
@@ -40,6 +42,8 @@ router.get('/pendientes/:tecnicoId', async (req, res) => {
       data: proyectos.map((proyecto) => ({
         proyectoId: proyecto.proyectoId,
         nombreCliente: proyecto.nombreCliente,
+        proyectoid: proyecto.proyectoId,
+        nombrecliente: proyecto.nombreCliente,
         direccion: proyecto.direccion,
         tecnicoAsignado: proyecto.tecnicoAsignado,
         estado: proyecto.estado,
