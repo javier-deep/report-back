@@ -81,26 +81,21 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const { proyectoId, nombreCliente, direccion, tecnicoAsignado } = req.body || {};
+    const { nombreCliente, direccion } = req.body || {};
 
-    if (!proyectoId || !nombreCliente || !direccion || !tecnicoAsignado) {
+    if (!nombreCliente || !direccion) {
       return res.status(400).json({
-        message: 'Se requieren proyectoId, nombreCliente, direccion y tecnicoAsignado',
+        message: 'Se requieren nombreCliente y direccion',
       });
     }
 
-    const existente = await Proyecto.findOne({ proyectoId });
-    if (existente) {
-      return res.status(409).json({
-        message: 'El proyectoId ya existe',
-      });
-    }
+    const finalProyectoId = `PRY-${Date.now().toString().slice(-6)}`;
 
     const proyecto = await Proyecto.create({
-      proyectoId,
+      proyectoId: finalProyectoId,
       nombreCliente,
       direccion,
-      tecnicoAsignado,
+      tecnicoAsignado: 'Sin asignar',
       estado: 'Pendiente',
     });
 
